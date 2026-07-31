@@ -2557,7 +2557,7 @@ function renderCommitteeChart(fp) {
 // *** URL ตายตัว — ดึงข้อมูลจาก Sheet นี้เท่านั้น ***
 // ⚠️ ต้อง Deploy ไฟล์ gs.txt (เวอร์ชันปี 2571) เป็น Google Apps Script Web App ใหม่แยกจากปี 2570
 //    แล้วนำ URL ที่ได้มาแทนที่ค่านี้ (หรือกรอกผ่านหน้าตั้งค่าในเว็บก็ได้ — ไม่ต้องแก้โค้ด)
-const GAS_URL_2571 = 'YOUR_GAS_URL_HERE';
+const GAS_URL_2571 = 'https://script.google.com/macros/s/AKfycby4uPhTEBgrXh4FW7yLMR-3g7XrYIq-s4u6bmthb12M9t8Ya8HRaxCAv-xpuxqe8bZ5/exec';
 let _gasUrl = GAS_URL_2571;
 let GAS_ENABLED = true;
 
