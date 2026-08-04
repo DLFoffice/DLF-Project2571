@@ -3190,7 +3190,7 @@ function renderActlog() {
        : '<span style="font-size:11px;color:var(--text3)">ไม่มีการเปลี่ยนแปลง</span>');
 
     const detailBtn = l.fields.length
-      ? `<button onclick="showActlogDetail(${l.id})" style="border:none;background:none;cursor:pointer;font-size:11px;color:var(--accent);text-decoration:underline;padding:0">ดูเพิ่ม</button>`
+      ? `<button onclick="showActlogDetail('${String(l.id).replace(/'/g,"\\'")}')" style="border:none;background:none;cursor:pointer;font-size:11px;color:var(--accent);text-decoration:underline;padding:0">ดูเพิ่ม</button>`
       : '—';
 
     return `<tr style="border-bottom:1px solid var(--border);transition:background .12s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
