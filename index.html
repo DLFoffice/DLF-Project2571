@@ -7,10 +7,12 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <!-- GitHub Pages CDN cache: force reload ด้วย Ctrl+Shift+R หรือเพิ่ม ?v=XXX ใน URL -->
-<title>ระบบรายงาน พ.ศ. 2570 | มูลนิธิการศึกษาทางไกลผ่านดาวเทียม</title>
+<title>ระบบรายงาน พ.ศ. 2571 | มูลนิธิการศึกษาทางไกลผ่านดาวเทียม</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<!-- หมายเหตุ: เดิมใช้ jsPDF + html2canvas rasterize หน้าเป็นภาพเพื่อสร้าง PDF ซึ่งทำให้บางครั้งจัดหน้าเพี้ยน/ตัวอักษรเบลอ
+     ปัจจุบันเปลี่ยนไปใช้การพิมพ์จากเบราว์เซอร์ (window.print → เลือก "บันทึกเป็น PDF") แทน จึงไม่จำเป็นต้องโหลดสองไลบรารีนี้อีกต่อไป -->
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
 </head>
 <body>
 <div class="layout">
@@ -22,7 +24,7 @@
     <div>
       <div class="org">มูลนิธิการศึกษาทางไกลผ่านดาวเทียม<br>ในพระบรมราชูปถัมภ์</div>
       <div class="title">ระบบรายงานแผนปฏิบัติการประจำ</div>
-      <span class="badge-year badge-year-2570" id="sidebarYearBadge">ปีงบประมาณ พ.ศ. 2570</span>
+      <span class="badge-year badge-year-2571" id="sidebarYearBadge">ปีงบประมาณ พ.ศ. 2571</span>
     </div>
     </div>
     <div class="sidebar-nav">
@@ -79,7 +81,7 @@
         บริหารความเสี่ยง
       </button>
     </div>
-    <div class="sidebar-footer" id="sidebar-footer">ปีงบประมาณ 2570</div>
+    <div class="sidebar-footer" id="sidebar-footer">ปีงบประมาณ 2571</div>
   </nav>
 
   <!-- Main -->
@@ -89,15 +91,15 @@
       <div class="topbar-left" style="flex:1;min-width:200px">
         <div>
           <div class="topbar-title" id="topbar-title">Dashboard สรุปภาพรวม</div>
-          <div class="topbar-sub" id="topbar-sub" style="font-size:11px;color:var(--text2)">ปีงบประมาณ พ.ศ. <span id="topbarYear">2570</span></div>
+          <div class="topbar-sub" id="topbar-sub" style="font-size:11px;color:var(--text2)">ปีงบประมาณ พ.ศ. <span id="topbarYear">2571</span></div>
         </div>
       </div>
       <div class="topbar-actions" style="gap:6px">
         <!-- Year active badge -->
         <div class="year-cards" id="yearCards">
-          <div class="year-card y2570" style="cursor:default;" title="ปีงบประมาณ พ.ศ. 2570 (กำลังใช้งาน)">
+          <div class="year-card y2571" style="cursor:default;" title="ปีงบประมาณ พ.ศ. 2571 (กำลังใช้งาน)">
             <span class="yc-label">ปีงบ</span>
-            <span class="yc-year">2570</span>
+            <span class="yc-year">2571</span>
             <span class="yc-badge">กำลังใช้</span>
           </div>
         </div>
@@ -156,17 +158,14 @@
       <div id="page-dashboard" style="display:none">
 
         <!-- Year Banner -->
-        <div class="year-banner banner-2570" id="yearBanner">
+        <div class="year-banner banner-2571" id="yearBanner">
           <span class="year-banner-icon">📅</span>
           <span>ปีงบประมาณ พ.ศ.</span>
-          <span class="year-banner-year y2570" id="yearBannerNum">2570</span>
+          <span class="year-banner-year y2571" id="yearBannerNum">2571</span>
           <span id="yearBannerSub" style="font-weight:400;opacity:.8">| ผลการดำเนินงาน</span>
           <span style="margin-left:auto;font-size:11px;opacity:.7" id="quarterLabel">ทุกไตรมาส</span>
           <span style="font-size:11px;background:rgba(255,255,255,.6);padding:2px 8px;border-radius:99px;font-weight:700" id="quarterBadge">ทุกไตรมาส</span>
         </div>
-
-        <!-- ★ งบประมาณที่ได้รับจัดสรร vs ยอดรวมงบตามยุทธศาสตร์ -->
-        <div id="allocatedBudgetCard" style="margin-bottom:14px"></div>
 
         <!-- ★ Strategy Summary — ด้านบนสุด (มีพื้นหลังสีอ่อน + กดได้) -->
         <div id="strategy-summary-top" style="margin-bottom:14px"></div>
@@ -225,7 +224,7 @@
         <!-- Budget Progress Visual -->
         <div class="card" style="margin-bottom:10px;padding:1.125rem 1.25rem">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.625rem">
-            <span style="font-size:13px;font-weight:700">📋 แผนการใช้งบประมาณ ปีงบประมาณ พ.ศ. <span id="budgetBarYear">2569</span></span>
+            <span style="font-size:13px;font-weight:700">📋 แผนการใช้งบประมาณ ปีงบประมาณ พ.ศ. <span id="budgetBarYear">2571</span></span>
             <span style="font-size:11px;color:var(--text3)" id="budgetBarQuarter">ทุกไตรมาส</span>
           </div>
           <div id="budgetMegaBar" style="height:22px;border-radius:99px;overflow:hidden;display:flex;gap:0;background:var(--surface2);margin-bottom:.5rem"></div>
@@ -297,7 +296,7 @@
         <div class="card" style="margin-bottom:1.25rem">
           <div class="card-header">
             <span class="card-title">ตารางสรุปผลการดำเนินงานรายยุทธศาสตร์</span>
-            <span style="font-size:11px;color:var(--text3)" id="summaryQuarterLabel">ปีงบประมาณ พ.ศ. 2569</span>
+            <span style="font-size:11px;color:var(--text3)" id="summaryQuarterLabel">ปีงบประมาณ พ.ศ. 2571</span>
           </div>
           <div class="summary-table-wrap">
             <table>
@@ -322,7 +321,7 @@
         <div class="card" style="margin-bottom:1.25rem" id="committeeSummaryCard">
           <div class="card-header" style="flex-wrap:wrap;gap:.5rem">
             <span class="card-title">🏛️ สรุปงบประมาณแยกตามอนุกรรมการ</span>
-            <span style="font-size:11px;color:var(--text3)" id="committeeQuarterLabel">ปีงบประมาณ พ.ศ. 2569</span>
+            <span style="font-size:11px;color:var(--text3)" id="committeeQuarterLabel">ปีงบประมาณ พ.ศ. 2571</span>
           </div>
           <div class="card-body" style="padding:.875rem 1.25rem">
 
@@ -378,9 +377,6 @@
               <option value="4">ยุทธศาสตร์ที่ 4</option>
               <option value="5">งบบริหารสำนักงาน</option>
             </select>
-            <select id="filterCommittee" class="select-filter" onchange="renderTable()">
-              <option value="">🏛 อนุกรรมการทั้งหมด</option>
-            </select>
             <select id="filterStatus" class="select-filter" onchange="renderTable()">
               <option value="">สถานะทั้งหมด</option>
               <option value="done">✅ แล้วเสร็จ</option>
@@ -394,12 +390,19 @@
               <option value="3">ไตรมาส 3 (เม.ย.–มิ.ย.)</option>
               <option value="4">ไตรมาส 4 (ก.ค.–ก.ย.)</option>
             </select>
+            <select id="filterCommittee" class="select-filter" onchange="renderTable()">
+              <option value="">🏛️ อนุกรรมการทั้งหมด</option>
+              <option value="นโยบายและแผนงาน">อนุกรรมการด้านนโยบายและแผนงาน</option>
+              <option value="วิชาการ">อนุกรรมการด้านวิชาการ</option>
+              <option value="เทคนิคและเทคโนโลยีดิจิทัล">อนุกรรมการด้านเทคนิคและเทคโนโลยีดิจิทัล</option>
+              <option value="บริหารงานบุคคล">อนุกรรมการด้านบริหารงานบุคคล</option>
+              <option value="__none__">ไม่ได้ระบุอนุกรรมการ</option>
+            </select>
             <button class="btn btn-sm btn-primary" onclick="openAdd()">+ เพิ่มโครงการ</button>
           </div>
           <div style="overflow-x:auto">
             <table>
               <thead>
-
                 <tr>
                   <th style="width:32px">#</th>
                   <th>ชื่อโครงการ <span style="font-weight:400;font-size:9px;color:var(--text3);letter-spacing:0;text-transform:none">(คลิกบรรทัดเพื่อดูรายละเอียด)</span></th>
@@ -622,7 +625,7 @@
             <code>https://script.google.com/macros/s/<strong>[DEPLOYMENT_ID]</strong>/exec</code>
           </div>
           <div class="gs-row">
-            <input type="text" id="gasUrlInput" class="form-input" placeholder="https://script.google.com/macros/s/AKfycbzMr5P9vLTghwQO9eeiSNHxJZxhLAouTaDTA-cbqVsJDtGa_5vMSq9DiasHdZvTyVff/exec" style="max-width:520px">
+            <input type="text" id="gasUrlInput" class="form-input" placeholder="https://script.google.com/macros/s/AKfycby4uPhTEBgrXh4FW7yLMR-3g7XrYIq-s4u6bmthb12M9t8Ya8HRaxCAv-xpuxqe8bZ5/exec" style="max-width:520px">
             <button class="btn btn-primary btn-sm" onclick="applyGasUrl()">✔ ตั้งค่า URL</button>
           </div>
           <div id="gasUrlStatus" style="margin-top:8px;font-size:12px;color:var(--text3)">สถานะ: ยังไม่ได้ตั้งค่า GAS URL</div>
@@ -1230,7 +1233,7 @@
         </div>
         <div class="form-field">
           <label class="form-label">ระยะเวลาดำเนินการ</label>
-          <input type="text" id="fDuration" class="form-input" placeholder="เช่น ตุลาคม 2569 – กันยายน 2570">
+          <input type="text" id="fDuration" class="form-input" placeholder="เช่น ตุลาคม 2571 – กันยายน 2572">
         </div>
         <div class="form-field full">
           <label class="form-label">อนุกรรมการที่เกี่ยวข้อง</label>
@@ -1524,9 +1527,8 @@
     <div class="modal-body" id="quarterReportBody"></div>
     <div class="modal-footer">
       <button class="btn" onclick="closeQuarterReportPreview()">ปิด</button>
-      <button class="btn btn-danger" id="qrDeleteBtn" style="display:none">🗑️ ลบ</button>
       <button class="btn" id="qrExportPdfBtn" style="background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;border-color:transparent">📄 Export PDF</button>
-      <button class="btn btn-primary" id="qrEditBtn">✏️ แก้ไข / เพิ่มข้อมูล</button>
+      <button class="btn btn-primary" id="qrEditBtn">✏️ แก้ไข</button>
     </div>
   </div>
 </div>
@@ -1550,22 +1552,24 @@
   </div>
 </div>
 
-<!-- ตั้งค่างบประมาณที่ได้รับจัดสรรประจำปี -->
+<!-- ตั้งค่ากรอบวงเงินเป้าหมายสำหรับจัดทำคำขอตั้งงบประมาณประจำปี -->
 <div class="modal-overlay" id="allocatedBudgetOverlay">
   <div class="modal" style="width:min(420px,100%)">
     <div class="modal-header">
-      <span class="modal-title">⚙️ ตั้งค่างบประมาณที่ได้รับจัดสรรประจำปี</span>
+      <span class="modal-title">⚙️ ตั้งค่ากรอบวงเงินเป้าหมาย (คำขอตั้งงบประมาณ)</span>
       <button class="btn btn-sm btn-icon" onclick="closeAllocatedBudgetModal()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
     <div class="modal-body">
       <p style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:10px">
-        ระบุจำนวนงบประมาณรวมที่หน่วยงานได้รับจัดสรรสำหรับปีงบประมาณ พ.ศ. 2570
-        ระบบจะนำไปเปรียบเทียบกับยอดรวมงบประมาณโครงการที่กรอกเข้ามาทุกยุทธศาสตร์
+        ระบบนี้ใช้สำหรับรวบรวมข้อมูลจัดทำ<strong>คำขอตั้งงบประมาณประจำปี พ.ศ. 2571</strong> ซึ่งขณะนี้ยังอยู่ระหว่างการพิจารณา
+        จึงยังไม่ทราบวงเงินที่จะได้รับจัดสรรจริง ตัวเลขที่กรอกด้านล่างเป็นเพียง<strong>กรอบวงเงินเป้าหมาย/ประมาณการ</strong>
+        ที่ท่านกำหนดขึ้นเองเพื่อใช้ควบคุมการจัดทำแผนเบื้องต้นเท่านั้น ระบบจะนำไปเปรียบเทียบกับยอดรวมงบประมาณโครงการ
+        ที่เสนอขอเข้ามาทุกยุทธศาสตร์ หากยังไม่ต้องการกำหนด สามารถเว้นว่างไว้ได้
       </p>
-      <label class="form-label">งบประมาณที่ได้รับจัดสรร (บาท)</label>
-      <input type="number" min="0" step="1" id="allocatedBudgetInput" class="form-input" placeholder="เช่น 498584400">
+      <label class="form-label">กรอบวงเงินเป้าหมาย (บาท)</label>
+      <input type="number" min="0" step="1" id="allocatedBudgetInput" class="form-input" placeholder="ยังไม่กำหนด (ปล่อยว่าง = 0)">
     </div>
     <div class="modal-footer">
       <button class="btn" onclick="closeAllocatedBudgetModal()">ยกเลิก</button>
@@ -1594,6 +1598,8 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="assets/app-core.js?v=20260821"></script>
+
 <!-- ══════════════════════════════════════════════════════
      PDF SELECT MODAL
 ══════════════════════════════════════════════════════ -->
@@ -1606,7 +1612,8 @@
     </div>
 
     <div style="padding:20px 24px;overflow-y:auto">
-      <div style="font-size:13px;color:#666;margin-bottom:12px">เลือกประเภทรายงานที่ต้องการ Export เป็น PDF</div>
+      <div style="font-size:13px;color:#666;margin-bottom:4px">เลือกประเภทรายงานที่ต้องการ Export เป็น PDF</div>
+      <div style="font-size:11.5px;color:#8a92a3;margin-bottom:12px">ระบบจะเปิดหน้าต่างพิมพ์ของเบราว์เซอร์ให้ — เมื่อกล่องพิมพ์เปิดขึ้น ให้เลือกปลายทาง (ปริ้นเตอร์) เป็น <strong>"บันทึกเป็น PDF" / "Save as PDF"</strong> แล้วกดบันทึก</div>
       <div id="pdfReportTypeList"></div>
 
       <div style="border-top:1px solid #eee;margin:18px 0 14px"></div>
@@ -1627,14 +1634,14 @@
 
     <div style="padding:14px 20px;border-top:1px solid #e4e7ed;display:flex;justify-content:flex-end;gap:8px;flex-shrink:0">
       <button onclick="closePdfSelectModal()" style="padding:8px 20px;border:1.5px solid #e4e7ed;border-radius:8px;background:#fff;cursor:pointer;font-family:Sarabun,sans-serif;font-size:14px">ยกเลิก</button>
-      <button onclick="generateSelectedReportPDF()" style="padding:8px 22px;border:none;border-radius:8px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;cursor:pointer;font-family:Sarabun,sans-serif;font-size:14px;font-weight:600;box-shadow:0 2px 8px rgba(220,38,38,.3)">⬇ สร้าง PDF</button>
+      <button onclick="generateSelectedReportPDF()" style="padding:8px 22px;border:none;border-radius:8px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;cursor:pointer;font-family:Sarabun,sans-serif;font-size:14px;font-weight:600;box-shadow:0 2px 8px rgba(220,38,38,.3)">🖨️ พิมพ์ / บันทึกเป็น PDF</button>
     </div>
   </div>
 </div>
 
-<script src="assets/app-pdf-select.js"></script>
+<script src="assets/app-pdf-select.js?v=20260821"></script>
 
-<script src="assets/app-pdf-export.js"></script>
+<script src="assets/app-pdf-export.js?v=20260821"></script>
 <!-- ══ AUTH MODAL ══ -->
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-box">
@@ -1643,7 +1650,7 @@
         <img src="https://dltv.ac.th/upload/data/users/0/316/CMS/images/logo%20dlf%20%E0%B8%AA%E0%B8%A1%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C.png" alt="Logo" width="44" style="object-fit:contain">
       </div>
       <div class="auth-logo-title">ระบบรายงานผลการแผนปฏิบัติการ</div>
-      <div class="auth-logo-sub">มูลนิธิการศึกษาทางไกลผ่านดาวเทียม · ปีงบประมาณ พ.ศ. 2570</div>
+      <div class="auth-logo-sub">มูลนิธิการศึกษาทางไกลผ่านดาวเทียม · ปีงบประมาณ พ.ศ. 2571</div>
     </div>
 
     <!-- Tabs -->
@@ -1794,13 +1801,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="assets/app-auth-risk.js"></script>
-
-<!-- app-core.js ต้องโหลดหลังสุด (หลัง app-auth-risk.js) เพราะ initApp() ที่ท้ายไฟล์
-     เรียก renderTable() ทันทีตอนโหลดหน้า ซึ่งเรียกใช้ _isEditable() ที่นิยามอยู่ใน
-     app-auth-risk.js — ถ้าโหลดก่อนจะเกิด ReferenceError: _isEditable is not defined
-     และทำให้โค้ดส่วนที่เหลือใน initApp() (รวมถึงการ sync จาก Google Sheet) ไม่ทำงานเลย -->
-<script src="assets/app-core.js"></script>
+<script src="assets/app-auth-risk.js?v=20260821"></script>
 
 </body>
 </html>
