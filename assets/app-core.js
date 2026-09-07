@@ -2818,7 +2818,7 @@ function renderCommitteeChart(fp) {
 // *** URL ตายตัว — ดึงข้อมูลจาก Sheet นี้เท่านั้น ***
 // ⚠️ ต้อง Deploy ไฟล์ gs.txt (เวอร์ชันปี 2571) เป็น Google Apps Script Web App ใหม่แยกจากปี 2570
 //    แล้วนำ URL ที่ได้มาแทนที่ค่านี้ (หรือกรอกผ่านหน้าตั้งค่าในเว็บก็ได้ — ไม่ต้องแก้โค้ด)
-const GAS_URL_2571 = 'https://script.google.com/macros/s/AKfycbyV-Dcq41O7uAIDbV2hF7cgnD1mLjrTYNHZVQJJwMwNiNENTUWA-QoXcep9bxRfuPy5yw/exec';
+const GAS_URL_2571 = 'https://script.google.com/macros/s/AKfycbx4KBOdEMLcmjwG0foDgui019-hCJLi0f7nry3RPRN7S98yP7PK2bMNwTqpg2jqwYk2/exec';
 let _gasUrl = GAS_URL_2571;
 let GAS_ENABLED = true;
 
