@@ -12,7 +12,7 @@
 <!-- หมายเหตุ: เดิมใช้ jsPDF + html2canvas rasterize หน้าเป็นภาพเพื่อสร้าง PDF ซึ่งทำให้บางครั้งจัดหน้าเพี้ยน/ตัวอักษรเบลอ
      ปัจจุบันเปลี่ยนไปใช้การพิมพ์จากเบราว์เซอร์ (window.print → เลือก "บันทึกเป็น PDF") แทน จึงไม่จำเป็นต้องโหลดสองไลบรารีนี้อีกต่อไป -->
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20260901V3">
+<link rel="stylesheet" href="assets/style.css?v=20260901V4">
 </head>
 <body>
 <div class="layout">
@@ -1614,7 +1614,18 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="assets/app-core.js?v=20260901V3"></script>
+<!-- ══ Firebase Auth + Firestore ══ -->
+<!-- ⚠️ ต้องโหลดก่อน app-core.js เสมอ เพราะ app-core.js เรียกใช้ _isEditable() (นิยามใน
+     app-auth-risk.js) ตั้งแต่ตอน initApp() รันครั้งแรก (ผ่าน renderTable) — ถ้าสลับลำดับ
+     จะเกิด "Uncaught ReferenceError: _isEditable is not defined" กลางการ initApp() ทำให้
+     โค้ดส่วนที่เหลือใน initApp() (รวมถึง syncFromSheet() ที่ดึงข้อมูลจาก Google Sheet)
+     ไม่ทำงานเลย หน้าเว็บจะค้างแสดงข้อมูลเก่าจาก localStorage แบบไม่มี error ให้ผู้ใช้เห็น -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="assets/app-auth-risk.js?v=20260901V4"></script>
+
+<script src="assets/app-core.js?v=20260901V4"></script>
 
 <!-- ══════════════════════════════════════════════════════
      PDF SELECT MODAL
@@ -1655,9 +1666,9 @@
   </div>
 </div>
 
-<script src="assets/app-pdf-select.js?v=20260901V3"></script>
+<script src="assets/app-pdf-select.js?v=20260901V4"></script>
 
-<script src="assets/app-pdf-export.js?v=20260901V3"></script>
+<script src="assets/app-pdf-export.js?v=20260901V4"></script>
 <!-- ══ AUTH MODAL ══ -->
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-box">
@@ -1812,12 +1823,6 @@
 
   </div><!-- /.auth-box -->
 </div><!-- /.auth-overlay -->
-
-<!-- ══ Firebase Auth + Firestore ══ -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="assets/app-auth-risk.js?v=20260901V3"></script>
 
 </body>
 </html>
