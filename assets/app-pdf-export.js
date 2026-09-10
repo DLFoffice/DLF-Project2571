@@ -344,13 +344,22 @@ function _buildFormHTML(p, logoSrc, opts) {
 async function _runPdfExport(htmlContentOrBlocks, filenameBase, headerOpts) {
   closePdfSelectModal();
 
+  // ให้ feedback ทันทีตอนกดปุ่ม ไม่ว่าแท็บใหม่จะเปิดสำเร็จหรือไม่ก็ตาม — เดิมถ้าแท็บใหม่เปิดขึ้น
+  // เป็นแท็บพื้นหลัง (ไม่ได้สลับโฟกัสให้อัตโนมัติ ซึ่งบาง Chrome/Edge ทำแบบนี้) ผู้ใช้จะไม่เห็นอะไร
+  // เปลี่ยนแปลงเลยบนหน้าจอ ดูเหมือนกดปุ่มไม่ติด ทั้งที่จริงๆ ทำงานอยู่เบื้องหลัง
+  if (typeof showToast === 'function') showToast('📄 กำลังเปิดหน้าต่างสร้าง PDF...', 2000);
+
   // เปิดหน้าต่างใหม่ทันทีเป็นบรรทัดแรก (ก่อนมี await ใดๆ) เพื่อไม่ให้เบราว์เซอร์ตัดสิทธิ์ user-gesture
   // ที่มาจากการคลิกปุ่ม แล้วบล็อก popup เนื่องจากเรียก window.open() ช้าเกินไป
   const printWin = window.open('', '_blank');
-  if (!printWin) {
-    alert('เบราว์เซอร์บล็อกป๊อปอัปสำหรับหน้าต่างพิมพ์ PDF กรุณาอนุญาต popup ของเว็บนี้แล้วลองใหม่อีกครั้ง');
+  // บาง browser ไม่คืนค่า null ตอนบล็อก popup แต่คืน window object ที่ใช้งานจริงไม่ได้ (closed=true
+  // หรือเขียน document ไม่ได้) — เช็คเพิ่มเติมนอกจาก !printWin เพื่อจับเคสนี้ด้วย แล้วแจ้งเตือนให้ชัดเจน
+  if (!printWin || printWin.closed) {
+    alert('เบราว์เซอร์บล็อกป๊อปอัปสำหรับหน้าต่างพิมพ์ PDF กรุณาอนุญาต popup ของเว็บนี้ (มักมีไอคอนเตือนที่แถบที่อยู่ URL มุมขวา) แล้วลองใหม่อีกครั้ง');
     return;
   }
+  // สลับโฟกัสไปแท็บใหม่ทันที เผื่อ browser เปิดเป็นแท็บพื้นหลังโดยไม่สลับให้อัตโนมัติ
+  try { printWin.focus(); } catch (e) {}
 
   // รองรับทั้ง HTML string เดี่ยว (เอกสาร/แบบฟอร์มเดียว) และ array ของ "บล็อก" เนื้อหา (รายงานรวมหลายโครงการ)
   const blocks = Array.isArray(htmlContentOrBlocks)
