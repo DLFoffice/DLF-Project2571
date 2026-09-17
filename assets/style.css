@@ -36,8 +36,8 @@
   --sidebar-grad: linear-gradient(0deg,rgba(74, 212, 200, 0.9) 0%, rgba(73, 132, 184, 1) 12%, rgba(7, 44, 168, 1) 97%);
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-text: #f5f8fd;
-  --sidebar-text-muted: #b7c6e3;
-  --sidebar-text-faint: #7d90b8;
+  --sidebar-text-muted: #f8f8f8;
+  --sidebar-text-faint: #fafafa;
   --sidebar-hover-bg: rgba(255, 255, 255, 0.07);
   --sidebar-active-bg: rgba(91, 147, 255, 0.22);
   --sidebar-active-text: #ffffff;
