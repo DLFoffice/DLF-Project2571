@@ -33,7 +33,7 @@
   --shadow-lg: 0 4px 20px rgba(0,0,0,.10);
 
   /* ── Sidebar theme (Navy-blue corporate gradient) ── */
-  --sidebar-grad: linear-gradient(180deg, #0c1f3f 0%, #123465 55%, #1a4480 100%);
+  --sidebar-grad: linear-gradient(180deg,rgba(1, 3, 128, 1) 0%, rgba(39, 74, 156, 1) 50%, rgba(16, 19, 201, 1) 100%);
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-text: #f5f8fd;
   --sidebar-text-muted: #b7c6e3;
