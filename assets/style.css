@@ -1,5 +1,5 @@
 :root {
-  --bg: #eef2f8;
+  --bg: linear-gradient(45deg, #e3ffe760 0%, #d9e7ff60 60%);
   --surface: #ffffff;
   --surface2: #eef1f6;
   --border: #e4e7ed;
@@ -33,7 +33,7 @@
   --shadow-lg: 0 4px 20px rgba(0,0,0,.10);
 
   /* ── Sidebar theme (Navy-blue corporate gradient) ── */
-  --sidebar-grad: linear-gradient(0deg,rgba(74, 212, 200, 0.9) 0%, rgba(73, 132, 184, 1) 12%, rgba(7, 44, 168, 1) 97%);
+  --sidebar-grad: linear-gradient(45deg, #188d77 0%, #2d3c7c 100%);
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-text: #f5f8fd;
   --sidebar-text-muted: #f8f8f8;
@@ -50,10 +50,6 @@ body {
   font-family: 'Sarabun', sans-serif;
   font-size: 14px;
   background: var(--bg);
-  background-image:
-    radial-gradient(circle at 0% 0%, #dce3ff 0%, transparent 45%),
-    radial-gradient(circle at 100% 0%, #ecdcff 0%, transparent 40%),
-    radial-gradient(circle at 50% 100%, #dcefff 0%, transparent 45%);
   background-attachment: fixed;
   color: var(--text);
   line-height: 1.65;
