@@ -3999,6 +3999,23 @@ function syncGanttToHidden() {
   const el = document.getElementById('fActivities');
   if(el) el.value = JSON.stringify(ganttRows);
 }
+// บางแถวข้อมูลกิจกรรม (Gantt) ที่เคยถูกบันทึกไว้ ถูก JSON.stringify ซ้อนกันมากกว่า 1 ชั้น
+// (เช่น แต่ละแถวถูกแปลงเป็นข้อความ JSON ก่อนแล้วค่อยเก็บทั้ง array อีกที) ทำให้ตอนโหลดกลับมา
+// แต่ละแถวเป็น string ของ JSON แทนที่จะเป็น object ปกติ ฟังก์ชันนี้จะพยายามแกะ JSON ที่ซ้อนอยู่
+// ออกให้จนกว่าจะได้ object ของแถวจริงๆ ก่อนค่อย fallback ไปใช้เป็นชื่อกิจกรรมแบบข้อความล้วน (รูปแบบเก่า)
+function _normalizeGanttEntry(r){
+  let v = r;
+  for (let i=0; i<4 && typeof v === 'string'; i++){
+    const t = v.trim();
+    if (!(t.startsWith('{') && t.endsWith('}'))) break;
+    try { v = JSON.parse(t); } catch(e) { break; }
+  }
+  if (v && typeof v === 'object' && !Array.isArray(v)) {
+    return { name: v.name || '', person: v.person || '', months: v.months || [] };
+  }
+  // ไม่ใช่ object ที่แกะได้ -> ถือว่าเป็นชื่อกิจกรรมแบบข้อความล้วน (รูปแบบเก่า)
+  return { name: (typeof v === 'string' ? v : (r && r.name) || ''), person: '', months: [] };
+}
 function loadGanttFromData(data) {
   try {
     const arr = typeof data==='string' ? JSON.parse(data||'[]') : (data||[]);
