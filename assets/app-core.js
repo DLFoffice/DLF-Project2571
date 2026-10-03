@@ -1563,9 +1563,9 @@ function openQuarterReportPreview(projectId, quarter){
   // 1. วัตถุประสงค์ / 2. เป้าหมาย — อ้างอิงจากแผนโครงการ ไม่ขึ้นกับไตรมาส แสดงเสมอถ้ามีข้อมูล
   const refBlock = (p.objective || p.targetQuantity || p.target) ? `
     <div style="margin-bottom:14px;padding:10px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius)">
-      ${p.objective?`<div style="margin-bottom:8px"><div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:2px">1. วัตถุประสงค์</div><div style="font-size:12.5px;line-height:1.6">${escapeHtml(p.objective)}</div></div>`:''}
-      ${p.targetQuantity?`<div style="margin-bottom:8px"><div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:2px">2.1 เป้าหมายเชิงปริมาณ</div><div style="font-size:12.5px;line-height:1.6">${escapeHtml(p.targetQuantity)}</div></div>`:''}
-      ${p.target?`<div><div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:2px">2.2 เป้าหมายเชิงคุณภาพ</div><div style="font-size:12.5px;line-height:1.6">${escapeHtml(p.target)}</div></div>`:''}
+      ${p.objective?`<div style="margin-bottom:8px"><div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:2px">1. วัตถุประสงค์</div><div style="font-size:12.5px;line-height:1.6">${_rtHtml(p.objective)}</div></div>`:''}
+      ${p.targetQuantity?`<div style="margin-bottom:8px"><div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:2px">2.1 เป้าหมายเชิงปริมาณ</div><div style="font-size:12.5px;line-height:1.6">${_rtHtml(p.targetQuantity)}</div></div>`:''}
+      ${p.target?`<div><div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:2px">2.2 เป้าหมายเชิงคุณภาพ</div><div style="font-size:12.5px;line-height:1.6">${_rtHtml(p.target)}</div></div>`:''}
     </div>` : '';
 
   if(!r){
@@ -1607,11 +1607,11 @@ function openQuarterReportPreview(projectId, quarter){
         <div class="detail-item"><div class="detail-item-label">ใช้ไป (ไตรมาสนี้)</div><div class="detail-item-value" style="color:var(--green)">${fmtFull(spent)} บาท</div></div>
         <div class="detail-item"><div class="detail-item-label">คงเหลือ</div><div class="detail-item-value" style="color:${remaining<0?'var(--red)':'var(--text)'}">${fmtFull(remaining)} บาท</div></div>
       </div>
-      ${r.result?`<div style="margin-bottom:12px"><div class="form-label">3. ผลการดำเนินงาน (สรุปภาพรวม)</div><div class="problem-box" style="background:var(--surface2);border-color:var(--border2);color:var(--text)">${escapeHtml(r.result)}</div></div>`:''}
+      ${r.result?`<div style="margin-bottom:12px"><div class="form-label">3. ผลการดำเนินงาน (สรุปภาพรวม)</div><div class="problem-box" style="background:var(--surface2);border-color:var(--border2);color:var(--text)">${_rtHtml(r.result)}</div></div>`:''}
       ${activitiesBlock}
       ${kpiTableBlock}
-      ${r.problems?`<div style="margin-bottom:12px"><div class="form-label">ปัญหาและอุปสรรค</div><div class="problem-box">${escapeHtml(r.problems)}</div></div>`:''}
-      ${r.solutions?`<div style="margin-bottom:12px"><div class="form-label">แนวทางแก้ไข / ข้อเสนอแนะ</div><div class="problem-box" style="background:var(--green-light);border-color:#a7f3d0;color:var(--green)">${escapeHtml(r.solutions)}</div></div>`:''}
+      ${r.problems?`<div style="margin-bottom:12px"><div class="form-label">ปัญหาและอุปสรรค</div><div class="problem-box">${_rtHtml(r.problems)}</div></div>`:''}
+      ${r.solutions?`<div style="margin-bottom:12px"><div class="form-label">แนวทางแก้ไข / ข้อเสนอแนะ</div><div class="problem-box" style="background:var(--green-light);border-color:#a7f3d0;color:var(--green)">${_rtHtml(r.solutions)}</div></div>`:''}
       ${imgs.length?`<div><div class="form-label">รูปภาพประกอบ (${imgs.length})</div><div style="display:flex;flex-wrap:wrap;gap:8px">${imgs.map(img=>`<img src="${img.url}" style="width:96px;height:96px;object-fit:cover;border-radius:8px;border:1px solid var(--border2)">`).join('')}</div></div>`:''}
     `;
   }
@@ -1865,9 +1865,9 @@ function renderReportRefInfo(p){
   const oEl  = document.getElementById('reportRefObjectiveText');
   const gqEl = document.getElementById('reportRefGoalQuantText');
   const glEl = document.getElementById('reportRefGoalQualText');
-  if(oEl)  oEl.innerHTML  = p.objective ? escapeHtml(p.objective) : '<span style="color:var(--text3)">ยังไม่ได้กรอกวัตถุประสงค์ไว้ในแผนโครงการ</span>';
-  if(gqEl) gqEl.innerHTML = p.targetQuantity ? escapeHtml(p.targetQuantity) : '<span style="color:var(--text3)">ยังไม่ได้กรอกเป้าหมายเชิงปริมาณไว้ในแผนโครงการ</span>';
-  if(glEl) glEl.innerHTML = p.target ? escapeHtml(p.target) : '<span style="color:var(--text3)">ยังไม่ได้กรอกเป้าหมายเชิงคุณภาพไว้ในแผนโครงการ</span>';
+  if(oEl)  oEl.innerHTML  = p.objective ? _rtHtml(p.objective) : '<span style="color:var(--text3)">ยังไม่ได้กรอกวัตถุประสงค์ไว้ในแผนโครงการ</span>';
+  if(gqEl) gqEl.innerHTML = p.targetQuantity ? _rtHtml(p.targetQuantity) : '<span style="color:var(--text3)">ยังไม่ได้กรอกเป้าหมายเชิงปริมาณไว้ในแผนโครงการ</span>';
+  if(glEl) glEl.innerHTML = p.target ? _rtHtml(p.target) : '<span style="color:var(--text3)">ยังไม่ได้กรอกเป้าหมายเชิงคุณภาพไว้ในแผนโครงการ</span>';
 }
 
 // ── รายชื่อตัวชี้วัด (KPI) ที่กรอกไว้ตอนวางแผนโครงการ (ข้อ "การวัดและประเมินผล" ในรายละเอียดโครงการ) ──
@@ -2020,9 +2020,9 @@ function openDetail(id){
     const t = (text||'').trim();
     if(!t) return '';
     const looksJson = t.length>=20 && ((t.startsWith('[')&&t.endsWith(']'))||(t.startsWith('{')&&t.endsWith('}')));
-    if(!looksJson) return `<div class="detail-text">${escapeHtml(t)}</div>`;
+    if(!looksJson) return `<div class="detail-text">${_rtHtml(t)}</div>`;
     let parsed=null;
-    try { parsed = JSON.parse(t); } catch(e){ return `<div class="detail-text">${escapeHtml(t)}</div>`; }
+    try { parsed = JSON.parse(t); } catch(e){ return `<div class="detail-text">${_rtHtml(t)}</div>`; }
     const warn = `<div style="font-size:11.5px;color:var(--red);background:var(--red-light);border:1px solid #ffd0d0;border-radius:6px;padding:6px 10px;margin-bottom:8px">⚠️ ข้อความนี้ดูเหมือนถูกวางผิดช่อง (เป็นข้อมูล JSON ไม่ใช่ข้อความปกติ) — กด "แก้ไข" ด้านล่างเพื่อย้ายไปช่องที่ถูกต้อง</div>`;
     const isBudgetShape = Array.isArray(parsed) && parsed.length && parsed.every(r=>r && typeof r==='object' && 'name' in r && ('comp' in r || 'op' in r || 'mat' in r));
     if(isBudgetShape){
@@ -2180,9 +2180,9 @@ function openDetail(id){
     ${budgetHtml}
     ${evalHtml}
     ${p.expectedBenefit?`<div class="detail-section"><div class="detail-section-title">✨ ผลที่คาดว่าจะได้รับ</div>${renderFreeText(p.expectedBenefit)}</div>`:''}
-    ${p.result?`<div class="detail-section"><div class="detail-section-title">📈 ผลการดำเนินงาน</div><div class="detail-text">${escapeHtml(p.result)}</div></div>`:''}
-    ${p.problems?`<div class="detail-section"><div class="detail-section-title">⚠️ ปัญหาและอุปสรรค</div><div class="problem-box">${escapeHtml(p.problems)}</div></div>`:''}
-    ${p.solutions?`<div class="detail-section"><div class="detail-section-title">💡 แนวทางแก้ไข</div><div class="solution-box">${escapeHtml(p.solutions)}</div></div>`:''}
+    ${p.result?`<div class="detail-section"><div class="detail-section-title">📈 ผลการดำเนินงาน</div><div class="detail-text">${_rtHtml(p.result)}</div></div>`:''}
+    ${p.problems?`<div class="detail-section"><div class="detail-section-title">⚠️ ปัญหาและอุปสรรค</div><div class="problem-box">${_rtHtml(p.problems)}</div></div>`:''}
+    ${p.solutions?`<div class="detail-section"><div class="detail-section-title">💡 แนวทางแก้ไข</div><div class="solution-box">${_rtHtml(p.solutions)}</div></div>`:''}
     ${sigHtml}
     ${(p.images&&p.images.length)?`
     <div class="detail-section">
@@ -2252,6 +2252,8 @@ function _unwrapMaybeJsonArrayString(v){
   }
   return t;
 }
+// แสดงข้อความยาวพร้อมรูปแบบ (ตัวหนา/เอียง/ขีดเส้นใต้/ย่อหน้า) — ดู assets/app-richtext.js
+function _rtHtml(t){ return (typeof dlfRich==='function') ? dlfRich(t) : escapeHtml(t); }
 function escapeHtml(str){
   // กัน error กรณีค่าที่ส่งเข้ามาไม่ใช่ string (เช่น array/object ที่หลุดมาจากข้อมูลผิดรูปแบบ)
   // แต่ก่อนถ้า str เป็น array/object จะเรียก .replace() ไม่ได้แล้วทำให้หน้าเว็บพังทั้งหน้า (เช่น กดดูรายละเอียดโครงการไม่ได้เลย)
