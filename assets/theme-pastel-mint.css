@@ -746,3 +746,4 @@ body.year-2571 { --accent: #2E8A63; --accent-light: #E6F5EC; }
 .auth-headline .accent { background-image: linear-gradient(90deg, #2E8A63 0%, #3FA6A0 30%, #D58A4E 55%, #4F97CC 78%, #2E8A63 100%); }
 .sidebar-logo .badge-year, .sidebar-logo .badge-year.badge-year-2571 { color: #23704F !important; }
 .sidebar { background: linear-gradient(180deg, #E8F5EE 0%, #F0F8F3 55%, #F6FAF4 100%); border-right-color: #E1EFE7; }
+:root { --ov-hero-end: #3E7E69; --ov-art-bar: #F6C08E; --ov-art-bar-dk: #C9693C; }
